@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HTML5 — Мультимедіа: приклади</title>
+  <style>
+    :root{--max-w:1100px;--accent:#0b72ff}
+    body{font-family:Inter,Segoe UI,Arial,Helvetica,sans-serif;margin:0;padding:0;line-height:1.5;color:#111;background:#f7f9fc}
+    .container{max-width:var(--max-w);margin:2rem auto;padding:1.25rem;background:#fff;border-radius:12px;box-shadow:0 6px 18px rgba(20,30,50,0.08)}
+    header h1{margin:.1rem 0 .6rem}
+    .grid{display:grid;grid-template-columns:1fr;gap:1rem}
+    .media-card{padding:1rem;border:1px solid #e5e8ef;border-radius:8px;background:#fcfdff}
+    .note{font-size:.9rem;color:#444}
+
+    .hero{position:relative;overflow:hidden;border-radius:10px;margin-bottom:1rem}
+    #bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+    .hero-content{position:relative;z-index:1;padding:3rem;color:white;text-shadow:0 6px 18px rgba(0,0,0,.5)}
+
+    canvas{display:block;max-width:100%;height:auto;border:1px dashed #cfd8e7;background:#fff}
+
+    @media(min-width:800px){.grid{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>HTML5 — Приклади мультимедіа</h1>
+      <p class="note">Усі приклади готові для локального запуску. Замініть шляхи до медіа-файлів у тегах <code>&lt;source&gt;</code> або <code>src</code>.</p>
+    </header>
+
+    <section class="hero media-card" aria-labelledby="hero-title">
+      <video id="bg-video" autoplay muted loop playsinline>
+        <source src="video.mp4" type="video/mp4">
+        <source src="video.webm" type="video/webm">
+      </video>
+      <div class="hero-content">
+        <h2 id="hero-title">Фонове відео — приклад</h2>
+        <p>Цей блок демонструє, як зробити відео фоном сторінки (muted &amp; autoplay &amp; loop). Вимикайте звук за замовчуванням для хорошого UX.</p>
+      </div>
+    </section>
+
+    <main class="grid">
+      <article class="media-card" id="video-tag">
+        <h3>1) Тег &lt;video&gt; з контролами та субтитрами</h3>
+        <video controls width="100%" preload="metadata" poster="poster.jpg">
+          <source src="sample-video.mp4" type="video/mp4">
+          <source src="sample-video.webm" type="video/webm">
+          <track kind="subtitles" srclang="uk" label="Українські субтитри" src="subtitles-uk.vtt" default>
+          Ваш браузер не підтримує елемент <code>video</code>. Скачайте відео <a href="sample-video.mp4">тут</a>.
+        </video>
+        <p class="note">Підтримка декількох форматів покращує сумісність. Додавайте <code>&lt;track&gt;</code> для субтитрів/описів.</p>
+      </article>
+
+      <article class="media-card" id="iframe-video">
+        <h3>2) Вбудоване відео через &lt;iframe&gt; (YouTube)</h3>
+        <div style="position:relative;padding-top:56.25%;height:0;overflow:hidden;border-radius:6px">
+          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video" allowfullscreen style="position:absolute;left:0;top:0;width:100%;height:100%;border:0"></iframe>
+        </div>
+        <p class="note">Iframe підходить для платформ (YouTube, Vimeo). Пам'ятайте про політику конфіденційності та cookies.</p>
+      </article>
+
+      <article class="media-card" id="audio-tag">
+        <h3>3) Тег &lt;audio&gt; з контролами</h3>
+        <audio controls preload="none">
+          <source src="audio-sample.mp3" type="audio/mpeg">
+          <source src="audio-sample.ogg" type="audio/ogg">
+          Ваш браузер не підтримує аудіоелемент. Скачайте аудіо <a href="audio-sample.mp3">тут</a>.
+        </audio>
+        <p class="note">Додавати текстовий опис аудіо під елементом — корисна практика для доступності.</p>
+      </article>
+
+      <article class="media-card" id="map-iframe">
+        <h3>4) Вбудована карта через &lt;iframe&gt;</h3>
+        <div style="position:relative;padding-top:56.25%;height:0;overflow:hidden;border-radius:6px">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11668506886!2d72.74546!3d19.082197" title="Embedded map" style="position:absolute;left:0;top:0;width:100%;height:100%;border:0" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <p class="note">Iframe з картою: переконайтесь, що URL дозволяє вбудовування.</p>
+      </article>
+
+      <article class="media-card" id="imagemap">
+        <h3>5) Мапа зображення: &lt;map&gt; + &lt;area&gt;</h3>
+        <img src="sample.jpg" alt="Приклад: інтерактивне зображення" usemap="#workmap" style="max-width:100%;height:auto;border-radius:6px;margin-bottom:.5rem">
+        <map name="workmap">
+          <area shape="rect" coords="20,20,220,120" href="#video-tag" alt="До відео через video">
+          <area shape="circle" coords="300,80,60" href="#audio-tag" alt="До аудіо">
+          <area shape="poly" coords="400,10,480,90,420,160" href="#iframe-video" alt="До iframe-відео">
+        </map>
+        <p class="note">Image map робить частини картинки клікабельними — корисно для інтерактивної графіки.</p>
+      </article>
+
+      <article class="media-card" id="canvas-example">
+        <h3>6) Canvas + JavaScript (малюнок та проста анімація)</h3>
+        <canvas id="myCanvas" width="600" height="300" aria-label="Приклад canvas: анімовані кола"></canvas>
+        <p class="note">Canvas дає контроль піксель за пікселем для графіки/ігор/визуалізацій.</p>
+      </article>
+
+      <article class="media-card" id="svg-example">
+        <h3>7) SVG (вбудований, масштабований)</h3>
+        <svg width="100%" height="160" viewBox="0 0 800 160" role="img" aria-labelledby="svgTitle">
+          <title id="svgTitle">Приклад SVG: лого та графіка</title>
+          <rect x="0" y="0" width="800" height="160" rx="8" fill="#f1f6ff"></rect>
+          <g transform="translate(24,20)">
+            <circle cx="40" cy="40" r="36" stroke="#0b72ff" stroke-width="6" fill="white"></circle>
+            <text x="96" y="54" font-size="36" font-family="Arial, Helvetica, sans-serif" fill="#0b72ff">SVG — вбудований в HTML</text>
+          </g>
+        </svg>
+        <p class="note">SVG зберігає якість при масштабуванні; його можна анімувати CSS або SMIL.</p>
+      </article>
+
+    </main>
+
+    <footer style="margin-top:1rem;text-align:center;color:#6b7280;font-size:.9rem">
+      <p>Порада: для локального тесту відкрийте файл у браузері (File → Open) або запустіть простий локальний сервер (наприклад: <code>npx http-server</code> або <code>python -m http.server</code>).</p>
+    </footer>
+  </div>
+
+  <script>
+    (function(){
+      const canvas = document.getElementById('myCanvas');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const width = canvas.width;
+      const height = canvas.height;
+      const circles = [];
+      for(let i=0;i<6;i++){
+        circles.push({x:Math.random()*width,y:Math.random()*height, r:10+Math.random()*30, vx:(Math.random()-0.5)*2, vy:(Math.random()-0.5)*2, hue: Math.floor(Math.random()*360)})
+      }
+      function draw(){
+        ctx.clearRect(0,0,width,height);
+        ctx.fillStyle = 'rgba(245,247,250,0.9)';
+        ctx.fillRect(0,0,width,height);
+        for(const c of circles){
+          c.x += c.vx; c.y += c.vy;
+          if(c.x< -50) c.x = width+50; if(c.x>width+50) c.x = -50;
+          if(c.y< -50) c.y = height+50; if(c.y>height+50) c.y = -50;
+          ctx.beginPath();
+          ctx.fillStyle = `hsl(${c.hue} 70% 60%)`;
+          ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+  </script>
+</body>
+</html>
